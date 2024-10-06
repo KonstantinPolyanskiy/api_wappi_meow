@@ -28,3 +28,11 @@ func (ap *AccountPool) RemoveAccount(id string) {
 	defer ap.mu.Unlock()
 	delete(ap.accounts, id)
 }
+
+func (ap *AccountPool) GetAccount(id string) (*model.Account, bool) {
+	ap.mu.Lock()
+	defer ap.mu.Unlock()
+	account, exists := ap.accounts[id]
+
+	return account, exists
+}
